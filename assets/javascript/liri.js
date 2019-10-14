@@ -1,4 +1,29 @@
+var dotenv = require("dotenv").config();
+var keys = require("./keys.js");
 var axios = require("axios");
+var spotify = require("node-spotify-api");
+
+var spotify = new spotify(
+    keys.spotify
+);
+
+spotify.search({
+    type: "track", query: "All the Small Things"}, function(err, data){
+        if(err) {
+            return console.log("Error occured: " + err);
+        }
+        console.log(data);
+    }
+)
+
+spotify
+  .request('https://api.spotify.com/v1/tracks/7yCPwWs66K8Ba5lFuU2bcx')
+  .then(function(data) {
+    console.log(data); 
+  })
+  .catch(function(err) {
+    console.error('Error occurred: ' + err); 
+  });
 
 
 var movieName =process.argv[2];
@@ -13,14 +38,15 @@ var movieName =process.argv[2];
 //     }
 // }
 
-var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy"
+// OMDB Axios
+// var queryURL = "http://www.omdbapi.com/?t=" + movieName + "&y=&plot=short&apikey=trilogy"
 
-console.log(queryURL);
+// console.log(queryURL);
 
-axios.get(queryURL).then(function(response){
-    console.log("Title " + response.data.Title);
-    console.log(response.data);m
-})
+// axios.get(queryURL).then(function(response){
+//     console.log("Title " + response.data.Title);
+//     console.log(response.data);
+// })
 
 // .catch(function(error) {
 //     if (error.response) {
