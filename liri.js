@@ -3,6 +3,7 @@ var keys = require("./keys.js");
 var axios = require("axios");
 var spotify = require("node-spotify-api");
 var fs = require("fs");
+var moment = require("moment");
 
 var command= process.argv[2];
 var secondCommand= process.argv[3];
@@ -13,6 +14,9 @@ var spotify = new spotify(
 );
 
 switch (command) {
+  case ('concert-this'):
+      concertThis(secondCommand)
+  break;
   case ('spotify-this-song'):
       if(secondCommand){
           spotifyThisSong(secondCommand);
@@ -87,7 +91,8 @@ var movieName =process.argv[2];
 // }
 
 function omdb(movie){
-axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey" + omdbKey + "&plot=short&apikey=trilogy").then(
+axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey" + omdbKey + "&plot=short&apikey=trilogy")
+.then(
   function(response) {
 
       // var body = JSON.parse(body);
@@ -124,6 +129,8 @@ axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey" + omdbKey + "&plot=sh
 
 
     if(movie === "Mr. Nobody" && !movie){
+        var movie ="Mr.Nobody";
+
 
       console.log("-----------------------");
       console.log("If you haven't watched 'Mr. Nobody,' then you should: http://www.imdb.com/title/tt0485947/");
@@ -134,7 +141,28 @@ axios.get("http://www.omdbapi.com/?t=" + movie + "&apikey" + omdbKey + "&plot=sh
 );
 }
 
+function concertThis(value) {
+  axios.get("https://rest.bandsintown.com/artists/" + value + "/events?app_id=codingbootcamp")
+  .then(function(response) {    
+      for (var i = 0; i < response.data.length; i++) {
 
+          var datetime = response.data[i].datetime; 
+          var dateArr = datetime.split('T'); 
+
+          var concertResults = 
+              "--------------------------------------------------------------------" +
+                  "\nVenue Name: " + response.data[i].venue.name + 
+                  "\nVenue Location: " + response.data[i].venue.city +
+                  "\nDate of the Event: " + moment().subtract(10, 'days').calendar(); //dateArr[0] should be the date separated from the time
+          console.log(concertResults);
+      }
+  })
+  .catch(function (error) {
+      console.log(error);
+  });
+      
+
+}
 
 
 function doThing(){
