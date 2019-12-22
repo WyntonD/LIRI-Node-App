@@ -6,3 +6,4 @@
 <img width="570" alt="Screenshot 2019-12-22 14 11 53" src="https://user-images.githubusercontent.com/51351780/71326246-35070b00-24c6-11ea-85c3-8d6595eb820a.png">
 
 
+<img width="569" alt="Screenshot 2019-12-22 14 12 32" src="https://user-images.githubusercontent.com/51351780/71326250-48b27180-24c6-11ea-8eb4-9dd792c47991.png">
